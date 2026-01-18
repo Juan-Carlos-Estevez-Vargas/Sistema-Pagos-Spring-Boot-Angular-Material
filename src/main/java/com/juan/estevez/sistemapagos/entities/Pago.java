@@ -3,6 +3,7 @@ package com.juan.estevez.sistemapagos.entities;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.juan.estevez.sistemapagos.dtos.NuevoPagoDTO;
 import com.juan.estevez.sistemapagos.enums.EstadoPago;
 import com.juan.estevez.sistemapagos.enums.TipoPago;
 
@@ -25,6 +26,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pago {
+
+    public Pago(NuevoPagoDTO pagoDTO) {
+        this.fecha = pagoDTO.getFecha();
+        this.tipoPago = pagoDTO.getTipoPago();
+        this.estadoPago = pagoDTO.getEstadoPago();
+        this.cantidad = pagoDTO.getCantidad();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

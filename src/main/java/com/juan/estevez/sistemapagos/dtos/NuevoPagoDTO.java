@@ -3,6 +3,7 @@ package com.juan.estevez.sistemapagos.dtos;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.juan.estevez.sistemapagos.enums.EstadoPago;
 import com.juan.estevez.sistemapagos.enums.TipoPago;
 
 import lombok.AllArgsConstructor;
@@ -21,5 +22,6 @@ public class NuevoPagoDTO {
     private TipoPago tipoPago;
     private LocalDate fecha;
     private String codigoEstudiante;
-    
+    private EstadoPago estadoPago;
+
 }
