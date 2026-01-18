@@ -5,4 +5,7 @@ package com.juan.estevez.sistemapagos.enums;
  */
 public enum EstadoPago {
     
+    CREADO,
+    VALIDADO,
+    RECHAZADO
 }
