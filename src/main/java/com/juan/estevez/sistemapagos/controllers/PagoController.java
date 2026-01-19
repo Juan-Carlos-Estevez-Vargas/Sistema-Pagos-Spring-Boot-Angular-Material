@@ -67,4 +67,9 @@ public class PagoController {
         return pagoService.guardarPago(archivo, pagoDTO);
     }
 
+    @GetMapping(value = "/pagos/archivo/{idPago}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public byte[] listarArchivoPorIdPago(@PathVariable Long idPago) throws IOException {
+        return pagoService.obtenerArchivoPorId(idPago);
+    }
+
 }
