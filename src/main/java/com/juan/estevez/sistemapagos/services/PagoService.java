@@ -1,6 +1,7 @@
 package com.juan.estevez.sistemapagos.services;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,55 +15,78 @@ import org.springframework.web.multipart.MultipartFile;
 import com.juan.estevez.sistemapagos.dtos.NuevoPagoDTO;
 import com.juan.estevez.sistemapagos.entities.Estudiante;
 import com.juan.estevez.sistemapagos.entities.Pago;
+import com.juan.estevez.sistemapagos.enums.EstadoPago;
 import com.juan.estevez.sistemapagos.repositories.EstudianteRepository;
 import com.juan.estevez.sistemapagos.repositories.PagoRepository;
 
-/**
- * @author Juan Carlos Estevez Vargas
- */
 @Service
 @Transactional
 public class PagoService {
 
+    private static final Path PAGOS_DIR = Paths.get(
+            System.getProperty("user.home"),
+            "enset-data",
+            "pagos");
+
     private final PagoRepository pagoRepository;
     private final EstudianteRepository estudianteRepository;
 
-    public PagoService(PagoRepository pagoRepository, EstudianteRepository estudianteRepository) {
+    public PagoService(PagoRepository pagoRepository,
+            EstudianteRepository estudianteRepository) {
         this.pagoRepository = pagoRepository;
         this.estudianteRepository = estudianteRepository;
     }
 
     public Pago guardarPago(MultipartFile archivo, NuevoPagoDTO pagoDTO) throws IOException {
-        if (archivo == null || archivo.isEmpty()) {
-            throw new IllegalArgumentException("El archivo es obligatorio");
-        }
-
+        validarArchivo(archivo);
         Estudiante estudiante = estudianteRepository.buscarPorCodigo(pagoDTO.getCodigoEstudiante());
 
         if (estudiante == null) {
             throw new IllegalArgumentException("Estudiante no encontrado");
         }
 
-        Path directorioPagos = Paths.get(
-                System.getProperty("user.home"),
-                "enset-data",
-                "pagos");
+        Files.createDirectories(PAGOS_DIR);
 
-        Files.createDirectories(directorioPagos);
+        Path rutaArchivo = guardarArchivo(archivo);
 
+        Pago pago = new Pago(pagoDTO);
+        pago.setEstudiante(estudiante);
+        pago.setArchivo(rutaArchivo.toUri().toString());
+
+        return pagoRepository.save(pago);
+    }
+
+    public byte[] obtenerArchivoPorId(Long pagoId) throws IOException {
+        Pago pago = obtenerPagoPorId(pagoId);
+        return Files.readAllBytes(Path.of(URI.create(pago.getArchivo())));
+    }
+
+    public Pago actualizarEstadoPago(Long pagoId, EstadoPago estadoPago) {
+        Pago pago = obtenerPagoPorId(pagoId);
+        pago.setEstadoPago(estadoPago);
+        return pagoRepository.save(pago);
+    }
+
+    public Pago obtenerPagoPorId(Long idPago) {
+        return pagoRepository.findById(idPago)
+                .orElseThrow(() -> new IllegalArgumentException("Pago no encontrado"));
+    }
+
+    private Path guardarArchivo(MultipartFile archivo) throws IOException {
         String nombreArchivo = UUID.randomUUID() + ".pdf";
-        Path rutaArchivo = directorioPagos.resolve(nombreArchivo);
+        Path rutaArchivo = PAGOS_DIR.resolve(nombreArchivo);
 
         Files.copy(
                 archivo.getInputStream(),
                 rutaArchivo,
                 StandardCopyOption.REPLACE_EXISTING);
 
-        Pago pago = new Pago(pagoDTO);
-        pago.setEstudiante(estudiante);
-        pago.setArchivo(rutaArchivo.toString());
-
-        return pagoRepository.save(pago);
+        return rutaArchivo;
     }
 
+    private void validarArchivo(MultipartFile archivo) {
+        if (archivo == null || archivo.isEmpty()) {
+            throw new IllegalArgumentException("El archivo es obligatorio");
+        }
+    }
 }
