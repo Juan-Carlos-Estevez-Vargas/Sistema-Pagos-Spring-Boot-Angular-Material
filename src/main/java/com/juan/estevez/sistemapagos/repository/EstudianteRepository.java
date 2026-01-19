@@ -1,6 +1,8 @@
-package com.juan.estevez.sistemapagos.repositories;
+package com.juan.estevez.sistemapagos.repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +14,8 @@ import com.juan.estevez.sistemapagos.entities.Estudiante;
 @Repository
 public interface EstudianteRepository extends JpaRepository<Estudiante, String> {
 
-    Estudiante buscarPorCodigo(String codigo);
+    Optional<Estudiante> findByCodigo(String codigo);
 
-    List<Estudiante> buscarPorProgramaID(String programaId);
+    List<Estudiante> findByProgramaId(String programaId);
 
 }

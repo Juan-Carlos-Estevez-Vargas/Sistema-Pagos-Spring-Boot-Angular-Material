@@ -1,4 +1,4 @@
-package com.juan.estevez.sistemapagos.repositories;
+package com.juan.estevez.sistemapagos.repository;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ import com.juan.estevez.sistemapagos.enums.TipoPago;
 @Repository
 public interface PagoRepository extends JpaRepository<Pago, Long> {
 
-    List<Pago> buscarPorCodigoEstudiante(String codigoEstudiante);
+    List<Pago> findByEstudianteCodigo(String codigo);
 
-    List<Pago> buscarPorEstado(EstadoPago estadoPago);
+    List<Pago> findByEstadoPago(EstadoPago estadoPago);
 
-    List<Pago> buscarByTipoPago(TipoPago tipoPago);
+    List<Pago> findByTipoPago(TipoPago tipoPago);
 
 }
