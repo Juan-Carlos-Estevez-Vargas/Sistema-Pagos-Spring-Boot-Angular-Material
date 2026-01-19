@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import com.juan.estevez.sistemapagos.dtos.NuevoPagoDTO;
 import com.juan.estevez.sistemapagos.entities.Estudiante;
 import com.juan.estevez.sistemapagos.entities.Pago;
 import com.juan.estevez.sistemapagos.enums.EstadoPago;
+import com.juan.estevez.sistemapagos.enums.TipoPago;
 import com.juan.estevez.sistemapagos.repositories.EstudianteRepository;
 import com.juan.estevez.sistemapagos.repositories.PagoRepository;
 
@@ -68,8 +70,7 @@ public class PagoService {
     }
 
     public Pago obtenerPagoPorId(Long idPago) {
-        return pagoRepository.findById(idPago)
-                .orElseThrow(() -> new IllegalArgumentException("Pago no encontrado"));
+        return pagoRepository.findById(idPago).orElseThrow(() -> new IllegalArgumentException("Pago no encontrado"));
     }
 
     private Path guardarArchivo(MultipartFile archivo) throws IOException {
@@ -88,5 +89,21 @@ public class PagoService {
         if (archivo == null || archivo.isEmpty()) {
             throw new IllegalArgumentException("El archivo es obligatorio");
         }
+    }
+
+    public List<Pago> obtenerPagos() {
+        return pagoRepository.findAll();
+    }
+
+    public List<Pago> obtenerPagosPorCodigoEstudiante(String codigoEstudiante) {
+        return pagoRepository.buscarPorCodigoEstudiante(codigoEstudiante);
+    }
+
+    public List<Pago> obtenerPagosPorEstado(EstadoPago estadoPago) {
+        return pagoRepository.buscarPorEstado(estadoPago);
+    }
+
+    public List<Pago> obtenerPagosPorTipo(TipoPago tipoPago) {
+        return pagoRepository.buscarByTipoPago(tipoPago);
     }
 }
