@@ -6,6 +6,7 @@ import com.juan.estevez.sistemapagos.entities.Estudiante;
 import com.juan.estevez.sistemapagos.entities.Pago;
 import com.juan.estevez.sistemapagos.entities.Usuario;
 import com.juan.estevez.sistemapagos.enums.EstadoPago;
+import com.juan.estevez.sistemapagos.enums.TipoPago;
 import com.juan.estevez.sistemapagos.exceptions.BadRequestException;
 import com.juan.estevez.sistemapagos.exceptions.NotFoundException;
 import com.juan.estevez.sistemapagos.repositories.EstudianteRepository;
