@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -57,8 +58,20 @@ public class PagoServiceImpl implements PagoService {
         validarArchivo(archivo);
 
         // Guardar archivo
-        String archivoNombre = fileStorageService.guardarArchivo(archivo);
-        String archivoHash = fileStorageService.calcularHash(archivo);
+        String archivoNombre = "";
+        try {
+            archivoNombre = fileStorageService.guardarArchivo(archivo);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        String archivoHash = "";
+        try {
+            archivoHash = fileStorageService.calcularHash(archivo);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // Crear pago
         Pago pago = Pago.builder()
@@ -148,7 +161,13 @@ public class PagoServiceImpl implements PagoService {
         Pago pago = pagoRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Pago no encontrado"));
 
-        return fileStorageService.obtenerArchivo(pago.getArchivoNombre());
+        try {
+            return fileStorageService.obtenerArchivo(pago.getArchivoNombre());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override
