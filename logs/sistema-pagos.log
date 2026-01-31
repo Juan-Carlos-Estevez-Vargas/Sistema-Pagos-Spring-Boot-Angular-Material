@@ -43,3 +43,49 @@
 2026-01-31T12:26:52.440-05:00  INFO 20200 --- [sistema-pagos] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2026-01-31T12:26:52.441-05:00  INFO 20200 --- [sistema-pagos] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2026-01-31T12:26:52.444-05:00  INFO 20200 --- [sistema-pagos] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-01-31T12:38:01.711-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.s.SistemapagosApplication          : Starting SistemapagosApplication using Java 22.0.2 with PID 12272 (D:\Documents\Programacion\Spring\Monoliticas\Sistema-Pagos\target\classes started by User in D:\Documents\Programacion\Spring\Monoliticas\Sistema-Pagos)
+2026-01-31T12:38:01.721-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.s.SistemapagosApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-01-31T12:38:03.571-05:00  INFO 12272 --- [sistema-pagos] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-31T12:38:03.698-05:00  INFO 12272 --- [sistema-pagos] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 4 JPA repository interfaces.
+2026-01-31T12:38:05.078-05:00  INFO 12272 --- [sistema-pagos] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-01-31T12:38:05.112-05:00  INFO 12272 --- [sistema-pagos] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-31T12:38:05.114-05:00  INFO 12272 --- [sistema-pagos] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-01-31T12:38:05.258-05:00  INFO 12272 --- [sistema-pagos] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3433 ms
+2026-01-31T12:38:05.525-05:00  INFO 12272 --- [sistema-pagos] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-01-31T12:38:05.648-05:00  INFO 12272 --- [sistema-pagos] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.0.Final
+2026-01-31T12:38:06.969-05:00  INFO 12272 --- [sistema-pagos] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-31T12:38:07.085-05:00  INFO 12272 --- [sistema-pagos] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-31T12:38:07.462-05:00  INFO 12272 --- [sistema-pagos] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-01-31T12:38:07.465-05:00  INFO 12272 --- [sistema-pagos] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-31T12:38:07.571-05:00  INFO 12272 --- [sistema-pagos] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-31T12:38:09.646-05:00  INFO 12272 --- [sistema-pagos] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-31T12:38:09.846-05:00  INFO 12272 --- [sistema-pagos] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-31T12:38:10.095-05:00  INFO 12272 --- [sistema-pagos] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-01-31T12:38:12.958-05:00  WARN 12272 --- [sistema-pagos] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-31T12:38:14.081-05:00  INFO 12272 --- [sistema-pagos] [main] o.s.b.h.a.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2026-01-31T12:38:14.203-05:00  INFO 12272 --- [sistema-pagos] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/api'
+2026-01-31T12:38:14.216-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.s.SistemapagosApplication          : Started SistemapagosApplication in 14.147 seconds (process running for 15.189)
+2026-01-31T12:38:14.334-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Creando programas iniciales...
+2026-01-31T12:38:14.582-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Programas creados exitosamente
+2026-01-31T12:38:14.590-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Creando usuarios iniciales...
+2026-01-31T12:38:15.084-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Usuarios creados exitosamente
+2026-01-31T12:38:15.084-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : === Credenciales para pruebas ===
+2026-01-31T12:38:15.084-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Admin: admin / admin123
+2026-01-31T12:38:15.085-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Finanzas: finanzas / finanzas123
+2026-01-31T12:38:15.085-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Profesor: profesor / profesor123
+2026-01-31T12:38:15.085-05:00  INFO 12272 --- [sistema-pagos] [main] c.j.e.sistemapagos.init.DataInitializer  : Estudiante: estudiante / estudiante123
+2026-01-31T12:38:34.035-05:00  INFO 12272 --- [sistema-pagos] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-31T12:38:34.036-05:00  INFO 12272 --- [sistema-pagos] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-31T12:38:34.041-05:00  INFO 12272 --- [sistema-pagos] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-01-31T12:38:37.003-05:00  INFO 12272 --- [sistema-pagos] [http-nio-8080-exec-9] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 2213 ms
