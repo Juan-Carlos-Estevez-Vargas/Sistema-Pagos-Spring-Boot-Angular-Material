@@ -1,0 +1,65 @@
+# src/main/resources/application.yml
+spring:
+  application:
+    name: sistema-pagos
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+  forward-headers-strategy: framework
+  servlet:
+    context-path: /api
+
+file:
+  upload-dir: uploads
+
+jwt:
+  secret: miClaveSecretaSuperSeguraQueDebeSerLargaParaHS512AlMenos64Caracteres1234567890abcdefghijklmnopqrstuvwxyz0123456789
+  expiration: 86400000
+
+springdoc:
+  api-docs:
+    enabled: true
+    # path: /v3/api-docs
+  swagger-ui:
+    # ~~
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    disable-swagger-default-url: true
+  show-actuator: true
+  use-fqn: true
+  paths-to-match:
+    - /api/**
+
+logging:
+  level:
+    com.juan.estevez.sistemapagos: INFO
+    org.springframework.security: WARN
+  file:
+    name: logs/sistema-pagos.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

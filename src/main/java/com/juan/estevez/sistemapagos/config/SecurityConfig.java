@@ -38,8 +38,34 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        // Permitir acceso público a Swagger y OpenAPI
+                        .requestMatchers(
+                                "/api/auth/**",
+                                // Swagger UI
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/api/swagger-ui/**",
+                                "/api/swagger-ui.html",
+                                // OpenAPI docs
+                                "/v3/api-docs/**",
+                                "/api/v3/api-docs/**",
+                                "/api-docs/**",
+                                "/api/api-docs/**",
+                                // H2 Console
+                                "/h2-console/**",
+                                "/api/h2-console/**",
+                                // Error pages
+                                "/error",
+                                "/api/error")
+                        .permitAll()
+                        // Resto de endpoints requieren autenticación
+                        .requestMatchers("/api/estudiantes/**").hasAnyRole("ADMIN", "FINANZAS", "PROFESOR")
+                        .requestMatchers("/api/pagos/**").hasAnyRole("ADMIN", "FINANZAS", "ESTUDIANTE")
+                        .requestMatchers("/api/programas/**").hasAnyRole("ADMIN", "FINANZAS", "PROFESOR")
+                        .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin()))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -49,8 +75,10 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:3000"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+        config.setExposedHeaders(Arrays.asList("Authorization"));
         config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", config);
