@@ -50,7 +50,7 @@ export class ApiService {
 
   postMultipart<T>(endpoint: string, formData: FormData): Observable<T> {
     return this.http.post<T>(`${this.apiUrl}${endpoint}`, formData, {
-      headers: this.getHeaders()
+      headers: this.getMultipartHeaders()
     });
   }
 
