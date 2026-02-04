@@ -1,4 +1,4 @@
-import { EstadoBadgePipe } from './estado-badge.pipe';
+import { EstadoBadgePipe } from '../estado-badge.pipe';
 
 describe('EstadoBadgePipe', () => {
   it('create an instance', () => {

@@ -1,4 +1,4 @@
-import { EstadoPagoPipe } from './estado-pago.pipe';
+import { EstadoPagoPipe } from '../estado-pago.pipe';
 
 describe('EstadoPagoPipe', () => {
   it('create an instance', () => {
