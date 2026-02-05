@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { Rol } from '../../core/models/auth.model';
+import { EstudiantesListComponent } from './components/estudiantes-list/estudiantes-list.component';
 
 const routes: Routes = [
   {

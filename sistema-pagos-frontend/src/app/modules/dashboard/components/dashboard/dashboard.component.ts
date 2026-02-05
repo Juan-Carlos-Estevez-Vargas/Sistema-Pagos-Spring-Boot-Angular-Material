@@ -14,7 +14,7 @@ import { DateFormatPipe } from '../../../../shared/pipes/date-format.pipe';
 import { EstadoPagoPipe } from '../../../../shared/pipes/estado-pago.pipe';
 
 @Component({
-  selector: 'app-dashboard.component',
+  selector: 'app-dashboard',
   imports: [ 
     CurrencyFormatPipe, 
     EstadoBadgePipe,

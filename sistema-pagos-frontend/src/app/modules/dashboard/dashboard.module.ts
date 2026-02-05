@@ -4,15 +4,17 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
+import { SharedModule } from 'primeng/api';
 
 @NgModule({
-  declarations: [ DashboardComponent ],
+  declarations: [],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     ChartModule,
     CardModule,
-    SharedModule
+    SharedModule,
+    DashboardComponent
   ]
 })
 export class DashboardModule { }

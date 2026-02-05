@@ -27,12 +27,13 @@
                 placeholder="Ingresa tu usuario"
                 [class.is-invalid]="username?.invalid && username?.touched"
               />
-              <div class="invalid-feedback" *ngIf="username?.hasError('required')">
-                El usuario es requerido
-              </div>
-              <div class="invalid-feedback" *ngIf="username?.hasError('minlength')">
-                El usuario debe tener al menos 3 caracteres
-              </div>
+              @if (username?.hasError('required')) {
+                <div class="invalid-feedback">El usuario es requerido</div>
+              }
+
+              @if (username?.hasError('minlength')) {
+                <div class="invalid-feedback">El usuario debe tener al menos 3 caracteres</div>
+              }
             </div>
 
             <!-- Password -->
@@ -57,12 +58,14 @@
                   <i [class]="hidePassword ? 'far fa-eye' : 'far fa-eye-slash'"></i>
                 </button>
               </div>
-              <div class="invalid-feedback" *ngIf="password?.hasError('required')">
-                La contraseña es requerida
-              </div>
-              <div class="invalid-feedback" *ngIf="password?.hasError('minlength')">
-                La contraseña debe tener al menos 6 caracteres
-              </div>
+
+              @if (password?.hasError('required')) {
+                <div class="invalid-feedback">La contraseña es requerida</div>
+              }
+
+              @if (password?.hasError('minlength')) {
+                <div class="invalid-feedback">La contraseña debe tener al menos 6 caracteres</div>
+              }
             </div>
 
             <!-- Remember Me -->
@@ -82,13 +85,12 @@
               class="btn btn-primary w-100 mb-3"
               [disabled]="loginForm.invalid || isLoading"
             >
-              <span *ngIf="!isLoading">
-                <i class="fas fa-sign-in-alt me-2"></i> Iniciar Sesión
-              </span>
-              <span *ngIf="isLoading">
+              @if (!isLoading) {
+                <span> <i class="fas fa-sign-in-alt me-2"></i> Iniciar Sesión </span>
+              } @else {
                 <span class="spinner-border spinner-border-sm me-2" role="status"></span>
                 Iniciando sesión...
-              </span>
+              }
             </button>
 
             <!-- Demo Credentials -->

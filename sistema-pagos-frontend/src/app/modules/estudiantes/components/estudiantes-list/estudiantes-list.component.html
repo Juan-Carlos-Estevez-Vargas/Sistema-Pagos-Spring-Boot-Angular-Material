@@ -1,0 +1,201 @@
+<div class="estudiantes-container">
+  <!-- Toolbar -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h3 mb-0"><i class="fas fa-user-graduate me-2"></i> Estudiantes</h1>
+          <p class="text-muted mb-0">Gestión de estudiantes del sistema</p>
+        </div>
+        <div>
+          <button
+            pButton
+            icon="pi pi-plus"
+            label="Nuevo Estudiante"
+            class="p-button-primary"
+            routerLink="/estudiantes/nuevo"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar por Nombre"
+            [(ngModel)]="filters.nombre"
+            (keyup.enter)="onFilter()"
+          />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar por Apellido"
+            [(ngModel)]="filters.apellido"
+            (keyup.enter)="onFilter()"
+          />
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Código</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Código"
+            [(ngModel)]="filters.codigo"
+            (keyup.enter)="onFilter()"
+          />
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Programa</label>
+          <select class="form-select" [(ngModel)]="filters.programaId">
+            <option value="">Todos</option>
+            @for (programa of programas; track programa.id) {
+              <option [value]="programa.id">
+                {{ programa.nombre }}
+              </option>
+            }
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Estado</label>
+          <select class="form-select" [(ngModel)]="filters.activo">
+            <option [ngValue]="null">Todos</option>
+            <option [ngValue]="true">Activos</option>
+            <option [ngValue]="false">Inactivos</option>
+          </select>
+        </div>
+        <div class="col-md-12 mt-3">
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary" (click)="onFilter()">
+              <i class="fas fa-search me-1"></i> Buscar
+            </button>
+            <button class="btn btn-outline-secondary" (click)="onClearFilters()">
+              <i class="fas fa-times me-1"></i> Limpiar
+            </button>
+            <button class="btn btn-outline-success ms-auto" (click)="onExport()">
+              <i class="fas fa-file-export me-1"></i> Exportar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de Estudiantes -->
+  <div class="card">
+    <div class="card-body p-0">
+      <p-table
+        #dt
+        [value]="estudiantes"
+        [lazy]="true"
+        [paginator]="true"
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+        [loading]="loading"
+        (onLazyLoad)="onPageChanged($event)"
+        [rowsPerPageOptions]="[10, 25, 50, 100]"
+        datakey="id"
+        selectionMode="single"
+        [(selection)]="selectedEstudiantes"
+        styleClass="p-datatable-striped"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Código</th>
+            <th>Nombre Completo</th>
+            <th>Email</th>
+            <th>Programa</th>
+            <th>Teléfono</th>
+            <th>Estado</th>
+            <th>Registro</th>
+            <th style="width: 120px">Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-estudiante>
+          <tr>
+            <td>
+              <strong>{{ estudiante.codigo }}</strong>
+            </td>
+            <td>{{ estudiante.nombre }} {{ estudiante.apellido }}</td>
+            <td>
+              <a [href]="'mailto:' + estudiante.email" class="text-decoration-none">{{
+                estudiante.email
+              }}</a>
+            </td>
+            <td>{{ estudiante.programaNombre }}</td>
+            <td>{{ estudiante.telefono || '-' }}</td>
+            <td>
+              <span [class]="getEstadoBadgeClass(estudiante.activo)">{{
+                getEstadoText(estudiante.activo)
+              }}</span>
+            </td>
+            <td>{{ estudiante.fechaRegistro | dateFormat: 'DD/MM/YYYY' }}</td>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="onViewDetail(estudiante)"
+                  title="Ver Detalles"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-warning"
+                  (click)="onEditEstudiante(estudiante)"
+                  title="Editar"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+
+                @if (estudiante.activo) {
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    (click)="onDeleteEstudiantes(estudiante)"
+                    title="Desactivar"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                } @else {
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    (click)="onActivateEstudiante(estudiante)"
+                    title="Activar"
+                  >
+                    <i class="fas fa-check"></i>
+                  </button>
+                }
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8" class="text-center py-4">
+              <app-empty-state
+                icon="fas fa-user-graduate"
+                title="No hay estudiantes para mostrar"
+                message="No se encontraron estudiantes con los filtros aplicados."
+              >
+              </app-empty-state>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

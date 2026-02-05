@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { EstudiantesListComponent } from './estudiantes-list.component';
+
+describe('EstudiantesListComponent', () => {
+  let component: EstudiantesListComponent;
+  let fixture: ComponentFixture<EstudiantesListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [EstudiantesListComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(EstudiantesListComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

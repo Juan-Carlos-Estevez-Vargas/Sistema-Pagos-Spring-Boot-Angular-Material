@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
+import { EstudiantesListComponent } from './components/estudiantes-list/estudiantes-list.component';
 
 @NgModule({
   declarations: [],
