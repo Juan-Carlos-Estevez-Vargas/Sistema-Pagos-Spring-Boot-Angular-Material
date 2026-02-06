@@ -1,0 +1,24 @@
+<div class="confirm-dialog p-4">
+  <div class="d-flex align-items-start mb-3">
+    <div class="icon-container me-3">
+      <i [class]="iconClass" class="fa-2x"></i>
+    </div>
+    <div>
+      <h4 class="mb-2">{{ data.title }}</h4>
+      <p class="text-muted mb-0">{{ data.message }}</p>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2 mt-4">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+      {{ data.cancelText }}
+    </button>
+    <button
+      type="button"
+      [class]="'btn btn-' + (data.type === 'danger' ? 'danger' : 'primary')"
+      (click)="onConfirm()"
+    >
+      {{ data.confirmText }}
+    </button>
+  </div>
+</div>
